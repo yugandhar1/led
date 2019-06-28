@@ -10,21 +10,43 @@ Adafruit_SSD1306 display(OLED_RESET);
 #if (SSD1306_LCDHEIGHT != 64)
 #error("Height incorrect, please fix Adafruit_SSD1306.h!");
 #endif
+#define switch D4
 
-uint8_t s = 0, m = 0, h = 0;
-
-void setup()   {
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C); /* Initialize display with address 0x3C */
-  display.clearDisplay();  /* Clear display */
-  display.setTextSize(1);	/* Select font size of text. Increases with size of argument. */
-  display.setTextColor(WHITE);	/* Color of text*/
-  testdrawcircle();
+uint8_t s = 0, m = 0, h = 0;  
+  void setup() {
+  display.beginSSD1306_SWITCHCAPVCC,0X3C);
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextcolor(WHITE);
+  pinmode(D4,INPUT);
+  
+  
+ 
+  
   //testdrawline();
 }
 
-void loop() {
-  /* Every second increment clock and display */
- // delay(1000);
+void loop() 
+ {
+  
+  // put your main code here, to run repeatedly:
+  boolean state;
+  state=digitalWrite(Switch,state);
+  if(state==HIGH)
+  {
+    display.clearDisplay();
+    drawStr(20,50,"c v vinay");
+    display.display();
+  }
+  else
+  {
+     display.clearDisplay();
+    drawStr(20,50," 6f6f7y");
+    display.display();
+  }
+ 
+  
+  delay(1000);
 }
 
 void updateWatch() {
